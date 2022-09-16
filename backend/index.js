@@ -100,7 +100,7 @@ app.use((req, resp, next) => {
         return
     }
     const token = terms[1]
-    jwt.verify(token, SIGN_SECRET, (err, decoded) => {
+    jwt.verify(token, 'secretkey', (err, decoded) => {
         if (err) {
             resp.status(401)
             resp.type('application/json')
@@ -112,6 +112,13 @@ app.use((req, resp, next) => {
     })})
 
 // Put protected requests below
+
+app.get('/api/test', (req, resp) => {
+    resp.status(200)
+    resp.type('application/json')
+    resp.json({ message: 'Request success!' })
+    return
+})
 
 app.listen(3008, () => {
     console.info(`Application is listening PORT 3008.`)
